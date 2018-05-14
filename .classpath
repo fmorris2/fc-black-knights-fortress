@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="fc-framework"/>
+	<classpathentry kind="src" path="fc-ernest-the-chicken"/>
+	<classpathentry kind="src" path="fc-goblin-diplomacy"/>
+	<classpathentry kind="src" path="fc-romeo-and-juliet"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/Freddy/AppData/Roaming/.tribot/dependancies/TRiBot.jar"/>
+	<classpathentry kind="output" path="TRIBOT_BIN"/>
+</classpath>

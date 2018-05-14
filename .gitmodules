@@ -1,0 +1,12 @@
+[submodule "fc-framework"]
+	path = fc-framework
+	url = https://github.com/fmorris2/fc-framework
+[submodule "fc-ernest-the-chicken"]
+	path = fc-ernest-the-chicken
+	url = https://github.com/fmorris2/fc-ernest-the-chicken
+[submodule "fc-romeo-and-juliet"]
+	path = fc-romeo-and-juliet
+	url = https://github.com/fmorris2/fc-romeo-and-juliet
+[submodule "fc-goblin-diplomacy"]
+	path = fc-goblin-diplomacy
+	url = https://github.com/fmorris2/fc-goblin-diplomacy
