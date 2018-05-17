@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="fc-framework"/>
+	<classpathentry excluding="fc-framework/|fc-ernest-the-chicken/|fc-goblin-diplomacy/|fc-romeo-and-juliet/|src/" kind="src" path=""/>
 	<classpathentry kind="src" path="fc-ernest-the-chicken"/>
 	<classpathentry kind="src" path="fc-goblin-diplomacy"/>
 	<classpathentry kind="src" path="fc-romeo-and-juliet"/>
