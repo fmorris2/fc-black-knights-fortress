@@ -13,6 +13,7 @@ import scripts.fc.missions.fc_black_knights_fortress.FCBlackKnightsFortress;
 public class BKFItemReqs extends ItemRequirement {
 	
 	public static final int TROUT = 333, IRON_CHAIN = 1101, BRONZE_MED = 1139, CABBAGE = 1965;
+	public static final int OPTIMAL_TROUT_AMT = 10, MIN_TROUT_AMT = 3;
 	
 	public BKFItemReqs(FCMissionScript script) {
 		super(script);
@@ -21,9 +22,9 @@ public class BKFItemReqs extends ItemRequirement {
 	@Override
 	public ReqItem[] getReqItems() {
 		return new ReqItem[] {
-			new SingleReqItem(TROUT, 8, true, true)
+			new SingleReqItem(TROUT, OPTIMAL_TROUT_AMT, true, true)
 				.when(new SettingBool(FCBlackKnightsFortress.SETTING, 3, true, Order.BEFORE_EQUALS)
-					.and(new InvBankBool(TROUT, 3, TYPE.NOT_IN_EITHER, true))),
+					.and(new InvBankBool(TROUT, MIN_TROUT_AMT, TYPE.NOT_IN_EITHER, true))),
 					
 			new SingleReqItem(IRON_CHAIN, 1, true, true)
 				.when(new SettingBool(FCBlackKnightsFortress.SETTING, 3, true, Order.BEFORE_EQUALS)),

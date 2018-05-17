@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 import scripts.fc.api.items.FCItem;
+import scripts.fc.framework.equipment.EquipData;
+import scripts.fc.framework.equipment.EquipmentSet;
 import scripts.fc.framework.quest.QuestScriptManager;
 import scripts.fc.framework.requirement.Requirement;
 import scripts.fc.framework.script.FCMissionScript;
@@ -17,8 +19,11 @@ import scripts.fc.missions.fc_black_knights_fortress.data.settings.BKFSettings;
 public class FCBlackKnightsFortress extends QuestScriptManager
 {
 	private static final long serialVersionUID = 1L;
+	
 	public static final String QUEST_NAME = "Black Knight's Fortress";
 	public static final int SETTING = 130;
+	public static final EquipmentSet EQUIPMENT = new EquipmentSet(EquipData.BRONZE_MED_HELM, EquipData.IRON_CHAINBODY);
+	
 	private final FCFoodThread FOOD_THREAD;
 	
 	public FCBlackKnightsFortress(FCMissionScript fcScript)
