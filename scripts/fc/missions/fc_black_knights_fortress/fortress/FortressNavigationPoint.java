@@ -7,11 +7,11 @@ import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSObject;
 import org.tribot.api2007.types.RSTile;
 
+import scripts.dax_api.walker_engine.local_pathfinding.Reachable.Direction;
 import scripts.fc.api.generic.FCConditions;
 import scripts.fc.api.interaction.EntityInteraction;
 import scripts.fc.api.interaction.impl.objects.ClickObject;
 import scripts.fc.api.travel.Travel;
-import scripts.webwalker_logic.local.walker_engine.local_pathfinding.Reachable.Direction;
 
 public class FortressNavigationPoint {
 	private static final int DISTANCE_THRESHOLD = 20;
@@ -19,9 +19,9 @@ public class FortressNavigationPoint {
 	private final RSTile OBJECT_TILE, INTERACT_FROM_TILE;
 	private final int OBJECT_ID;
 	
-	private String action;
+	private final String action;
 
-	public FortressNavigationPoint(RSTile t, Direction d, int id, String action) {
+	public FortressNavigationPoint(final RSTile t, final Direction d, final int id, final String action) {
 		OBJECT_TILE = t;
 		INTERACT_FROM_TILE = d.getPointingTile(t);
 		OBJECT_ID = id;
@@ -44,7 +44,7 @@ public class FortressNavigationPoint {
 	}
 	
 	public boolean isPlayerAt() {
-		RSTile playerPos = Player.getPosition();
+		final RSTile playerPos = Player.getPosition();
 		
 		if(playerPos.getPlane() != OBJECT_TILE.getPlane())
 			return false;
@@ -56,7 +56,7 @@ public class FortressNavigationPoint {
 	}
 	
 	public RSObject findObject() {
-		RSObject[] objs = Objects.getAt(OBJECT_TILE, Filters.Objects.idEquals(OBJECT_ID));
+		final RSObject[] objs = Objects.getAt(OBJECT_TILE, Filters.Objects.idEquals(OBJECT_ID));
 		
 		return objs.length > 0 ? objs[0] : null;
 	}

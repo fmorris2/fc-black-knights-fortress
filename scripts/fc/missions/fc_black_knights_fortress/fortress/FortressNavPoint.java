@@ -13,8 +13,8 @@ import org.tribot.api2007.Game;
 import org.tribot.api2007.Options;
 import org.tribot.api2007.types.RSTile;
 
+import scripts.dax_api.walker_engine.local_pathfinding.Reachable.Direction;
 import scripts.fc.api.wrappers.FCTiming;
-import scripts.webwalker_logic.local.walker_engine.local_pathfinding.Reachable.Direction;
 
 public enum FortressNavPoint {
 	ENTRANCE(new FortressNavigationPoint(new RSTile(3016,3514,0), Direction.SOUTH, 2337, "Open"), 
@@ -74,23 +74,23 @@ public enum FortressNavPoint {
 	
 	public final FortressNavigationPoint FORWARD_NAV_POINT, BACKWARD_NAV_POINT;
 	
-	FortressNavPoint(FortressNavigationPoint p){
+	FortressNavPoint(final FortressNavigationPoint p){
 		FORWARD_NAV_POINT = BACKWARD_NAV_POINT = p;
 	}
 	
-	FortressNavPoint(FortressNavigationPoint forward, FortressNavigationPoint backward, 
-			RSTile afterInteractionTileForward, RSTile afterInteractionTileBackward) {
+	FortressNavPoint(final FortressNavigationPoint forward, final FortressNavigationPoint backward, 
+			final RSTile afterInteractionTileForward, final RSTile afterInteractionTileBackward) {
 		FORWARD_NAV_POINT = forward;
 		BACKWARD_NAV_POINT = backward;
 	}
 	
-	FortressNavPoint(FortressNavigationPoint forward, FortressNavigationPoint backward) {
+	FortressNavPoint(final FortressNavigationPoint forward, final FortressNavigationPoint backward) {
 		FORWARD_NAV_POINT = forward;
 		BACKWARD_NAV_POINT = backward;
 	}
 	
 	private static FortressNavPoint getCurrentNavPointPlayerIsAt() {
-		for(FortressNavPoint p : values()) {
+		for(final FortressNavPoint p : values()) {
 			if(p.FORWARD_NAV_POINT.isPlayerAt() || p.BACKWARD_NAV_POINT.isPlayerAt())
 				return p;
 		}
@@ -99,7 +99,7 @@ public enum FortressNavPoint {
 	}
 	
 	public static boolean isPlayerInFortress() {
-		for(FortressNavPoint p : values()) {
+		for(final FortressNavPoint p : values()) {
 			if(p == ENTRANCE) {
 				if(p.BACKWARD_NAV_POINT.isPlayerAt())
 					return true;
@@ -120,38 +120,38 @@ public enum FortressNavPoint {
 		return false;
 	}
 	
-	public LinkedList<FortressNavPoint> generatePathToDest(FortressNavPoint dest) {
+	public LinkedList<FortressNavPoint> generatePathToDest(final FortressNavPoint dest) {
 		if(this == dest)
 			return new LinkedList<>();
 			
-		Set<FortressNavPoint> alreadyChecked = new HashSet<>();
-		LinkedList<FortressNavPoint> path = new LinkedList<>();
+		final Set<FortressNavPoint> alreadyChecked = new HashSet<>();
+		final LinkedList<FortressNavPoint> path = new LinkedList<>();
 		return generatePathToDest(dest, path, alreadyChecked);
 	}
 	
-	private static boolean isBackwardStep(FortressNavPoint start, FortressNavPoint end) {
+	private static boolean isBackwardStep(final FortressNavPoint start, final FortressNavPoint end) {
 		if(start == ENTRANCE)
 			return false;
 		
-		LinkedList<FortressNavPoint> fromStart = start.generatePathToDest(ENTRANCE);
-		LinkedList<FortressNavPoint> fromEnd = end.generatePathToDest(ENTRANCE);
+		final LinkedList<FortressNavPoint> fromStart = start.generatePathToDest(ENTRANCE);
+		final LinkedList<FortressNavPoint> fromEnd = end.generatePathToDest(ENTRANCE);
 		
 		return fromStart.size() >= fromEnd.size();
 	}
 	
-	private LinkedList<FortressNavPoint> generatePathToDest(FortressNavPoint dest, LinkedList<FortressNavPoint> path, Set<FortressNavPoint> alreadyChecked) {
-		Set<Integer> connectionSet = ADJACENCY_MATRIX.get(dest.ordinal());
+	private LinkedList<FortressNavPoint> generatePathToDest(final FortressNavPoint dest, final LinkedList<FortressNavPoint> path, final Set<FortressNavPoint> alreadyChecked) {
+		final Set<Integer> connectionSet = ADJACENCY_MATRIX.get(dest.ordinal());
 		if(connectionSet.contains(this.ordinal())) {
 			path.add(dest);
 			return path;
 		}
 		
-		for(int connectionIndex : connectionSet) {
+		for(final int connectionIndex : connectionSet) {
 			if(alreadyChecked.contains(values()[connectionIndex])) {
 				continue;
 			}
 			alreadyChecked.add(values()[connectionIndex]);
-			Queue<FortressNavPoint> connection = generatePathToDest(values()[connectionIndex], path, alreadyChecked);
+			final Queue<FortressNavPoint> connection = generatePathToDest(values()[connectionIndex], path, alreadyChecked);
 			if(connection != null) {
 				path.add(dest);
 				return path;
@@ -163,13 +163,13 @@ public enum FortressNavPoint {
 	
 	//navigates to forward interactable object of this point
 	public boolean navigateTo() {
-		FortressNavPoint currentlyAt = getCurrentNavPointPlayerIsAt();
+		final FortressNavPoint currentlyAt = getCurrentNavPointPlayerIsAt();
 		General.println("Player is currently at: " + currentlyAt.toString());
 		
 		if(currentlyAt == this)
 			return true;
 		
-		LinkedList<FortressNavPoint> path = currentlyAt.generatePathToDest(this);
+		final LinkedList<FortressNavPoint> path = currentlyAt.generatePathToDest(this);
 		
 		if(path == null)
 			return false;
@@ -182,12 +182,12 @@ public enum FortressNavPoint {
 		return this.FORWARD_NAV_POINT.isPlayerAt() || this.BACKWARD_NAV_POINT.isPlayerAt();
 	}
 	
-	private void navigateThroughPath(LinkedList<FortressNavPoint> path) {
+	private void navigateThroughPath(final LinkedList<FortressNavPoint> path) {
 		final int FAILURE_THRESH = 5;
 		int failures = 0;
 		while(!path.isEmpty() || failures > FAILURE_THRESH) {
 			checkRun();
-			FortressNavPoint nextToInteractWith = getNextInteract(path);
+			final FortressNavPoint nextToInteractWith = getNextInteract(path);
 			General.println("[FC Fortress Navigator]: Path: " + path.toString());
 			General.println("[FC Fortress Navigator]: Next to interact with: " + nextToInteractWith);
 			if(!path.contains(nextToInteractWith) && isPlayerInFortress()) {
@@ -196,10 +196,10 @@ public enum FortressNavPoint {
 				continue;
 			}
 			//boolean isBackwardStep = isBackwardStep(getCurrentNavPointPlayerIsAt(), nextToInteractWith);
-			FortressNavigationPoint toInteractWith = nextToInteractWith.BACKWARD_NAV_POINT.isPlayerAt() 
+			final FortressNavigationPoint toInteractWith = nextToInteractWith.BACKWARD_NAV_POINT.isPlayerAt() 
 					? nextToInteractWith.BACKWARD_NAV_POINT : nextToInteractWith.FORWARD_NAV_POINT;
 			
-			boolean interactResult = nextToInteractWith == GRILL || nextToInteractWith == HOLE ?
+			final boolean interactResult = nextToInteractWith == GRILL || nextToInteractWith == HOLE ?
 					toInteractWith.proceedTo() : toInteractWith.proceedToAndInteract();
 			if(interactResult) {
 				if(nextToInteractWith == GRILL || nextToInteractWith == HOLE)
@@ -212,7 +212,7 @@ public enum FortressNavPoint {
 				
 				if(FCTiming.waitCondition(() -> getNextInteract(path) != nextToInteractWith, 5000)) {
 					while(!path.isEmpty()) {
-						FortressNavPoint removed = path.removeFirst();
+						final FortressNavPoint removed = path.removeFirst();
 						if(removed == nextToInteractWith)
 							break;
 					}
@@ -228,9 +228,9 @@ public enum FortressNavPoint {
 			Options.setRunEnabled(true);
 	}
 	
-	private FortressNavPoint getNextInteract(LinkedList<FortressNavPoint> path) {
+	private FortressNavPoint getNextInteract(final LinkedList<FortressNavPoint> path) {
 		for(int i = path.size() - 1; i >= 0; i--) {
-			FortressNavPoint point = path.get(i);
+			final FortressNavPoint point = path.get(i);
 			if(point.BACKWARD_NAV_POINT.isPlayerAt() || point.FORWARD_NAV_POINT.isPlayerAt())
 				return point;
 		}

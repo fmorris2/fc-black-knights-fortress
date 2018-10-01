@@ -7,5 +7,8 @@
 	<classpathentry kind="src" path="fc-romeo-and-juliet"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Freddy/AppData/Roaming/.tribot/dependancies/TRiBot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Freddy/Documents/TRiBot_Documents/allatori-annotations.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Freddy/AppData/Roaming/.tribot/dependancies/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Freddy/AppData/Roaming/.tribot/dependancies/guava-26.0-jre.jar"/>
 	<classpathentry kind="output" path="TRIBOT_BIN"/>
 </classpath>
